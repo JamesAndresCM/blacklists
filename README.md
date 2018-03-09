@@ -2,12 +2,8 @@
 
 - Configuration 
 
-***
-
 Set user and password to bd (mysql)
 - file `config/database.yml (username, password)`
-
-***
 
 Execute : 
 - `rails db:create`
