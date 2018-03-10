@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 20180306231659) do
 
-  create_table "blacklistips", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "blacklistips", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string "ip_address"
     t.string "central_report"
     t.string "status_ip"
@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 20180306231659) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string "category_ip_blacklist"
     t.bigint "report_id"
     t.datetime "created_at", null: false
@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 20180306231659) do
     t.index ["report_id"], name: "index_categories_on_report_id"
   end
 
-  create_table "reports", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "reports", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string "ip_address"
     t.string "isWhitelisted"
     t.datetime "created_at", null: false
