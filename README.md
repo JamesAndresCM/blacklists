@@ -9,6 +9,20 @@ Execute :
 
 ***
 
+Or use Docker
+***
+- Create container bd
+* `docker run --name=db_rails -e MYSQL_DATABASE=blacklist_development -e MYSQL_USER=blacklist -e MYSQL_PASSWORD=user_pass -e MYSQL_ROOT_PASSWORD=root_pass -p 3306:3306 -d mariadb`
+
+- Build Dockerfile for rails
+* `docker build -t blacklist_rails_5 .`
+
+- Create migration
+* `docker run --rm --name=rails_blacklist --link=db_rails:db_rails -e DB_HOST=db_rails -e DB_USER=blacklist -e DB_NAME=blacklist_development -e BLACKLIST_DATABASE_PASSWORD=user_pass blacklist_rails_5 rake db:migrate`
+
+- Create container rails
+* `docker run --name=rails_blacklist --link=db_rails:db_rails -p 3000:3000 -e DB_HOST=db_rails -e DB_USER=blacklist -e DB_NAME=blacklist_development -e BLACKLIST_DATABASE_PASSWORD=user_pass blacklist_rails_5`
+
 ## Endpoints
 
 ### All abuses
