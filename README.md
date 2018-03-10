@@ -18,10 +18,10 @@ Or use Docker
 * `docker build -t blacklist_rails_5 .`
 
 - Create migration
-* `docker run --rm --name=rails_blacklist --link=db_rails:db_rails -e DB_HOST=db_rails -e DB_USER=blacklist -e DB_NAME=blacklist_development -e BLACKLIST_DATABASE_PASSWORD=user_pass blacklist_rails_5 rake db:migrate`
+* `docker run --rm --link=db_rails:db_rails -e DB_HOST=db_rails -e DB_USER=blacklist -e DB_NAME=blacklist_development -e BLACKLIST_DATABASE_PASSWORD=user_pass blacklist_rails_5 rake db:migrate`
 
 - Create container rails
-* `docker run --name=rails_blacklist --link=db_rails:db_rails -p 3000:3000 -e DB_HOST=db_rails -e DB_USER=blacklist -e DB_NAME=blacklist_development -e BLACKLIST_DATABASE_PASSWORD=user_pass blacklist_rails_5`
+* `docker run --name=rails_blacklist --link=db_rails:db_rails -p 3000:3000 -e DB_HOST=db_rails -e DB_USER=blacklist -e DB_NAME=blacklist_development -e BLACKLIST_DATABASE_PASSWORD=user_pass -d blacklist_rails_5`
 
 ## Endpoints
 
