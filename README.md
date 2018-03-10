@@ -15,7 +15,7 @@ Execute :
 * `http :3000/ or http :3000/v1/abuse_ips (/ => redirect to abuse_ips)`
 
 #### Create report (aka abuse_ip)
-* `http POST :3000/v1/abuse_ip/new ip_address="ip_address" isWhitelisted="0/1"`  
+* `http POST :3000/v1/abuse_ip/new ip_address="ip_address" isWhitelisted="0/1" category_ip_blacklist="category_ip_blacklist"`  
 
 #### Search report (aka search abuse_ip)
 * `http :3000/v1/abuse_ips/search_ip?ip_address="ip_address"`
