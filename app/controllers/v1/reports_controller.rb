@@ -31,8 +31,16 @@ module V1
     end
 
     def create
-      @report = Report.create!(report_params)
-      json_response(@report, :created)
+      @report = Report.new(report_params)
+      unless params[:category_ip_blacklist].nil? or @report.nil?
+        @report.save!
+        @report.categories.create(report_id: @report.id, category_ip_blacklist: params[:category_ip_blacklist])
+        @report.save!
+        json_response(@report, :created)
+      else if not @report.nil?
+        json_response(status:"error category_ip_blacklist not blank")
+        end
+      end
     end
 
     def update
@@ -69,7 +77,7 @@ module V1
     private
 
     def report_params
-      params.permit(:ip_address, :isWhitelisted)
+      params.require(:report).permit(:ip_address, :isWhitelisted ,categories_attributes: [:report_id, :category_ip_blacklist])
     end
 
     def set_report
