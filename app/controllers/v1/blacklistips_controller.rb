@@ -4,7 +4,11 @@ module V1
 
       def index
         @blacklistips = Blacklistip.all.order("created_at desc")
-        json_response(@blacklistips)
+        unless @blacklistips.empty?
+            json_response(@blacklistips)
+            else
+                json_response(status:"false", message: "records not found")
+            end
       end
 
       def create

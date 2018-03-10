@@ -5,7 +5,11 @@ module V1
     def index
       @reports = Report.all.pluck(:id,:ip_address)
       _report = @reports.map {|id,ip_address| {:id => id, :ip_address => ip_address }}
-      json_response(_report)
+      unless _report.empty?
+        json_response(_report)
+        else
+            json_response(status: "false", message:"records not found")
+        end
     end
 
     #show per id, ! method search by ip_address
