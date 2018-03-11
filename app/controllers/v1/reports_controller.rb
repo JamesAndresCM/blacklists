@@ -3,10 +3,9 @@ module V1
     before_action :set_report, only: [:update, :destroy]
 
     def index
-      @reports = Report.all.pluck(:id,:ip_address)
-      _report = @reports.map {|id,ip_address| {:id => id, :ip_address => ip_address }}
-      unless _report.empty?
-        json_response(_report)
+      @report = Report.index_reports
+      unless @report.empty?
+        json_response(@report)
         else
             json_response(status: "false", message:"records not found")
         end
@@ -14,8 +13,7 @@ module V1
 
     #show per id, ! method search by ip_address
     def show
-      @report = Report.select(Arel.star).where(Report.arel_table[:id].eq(params[:id])).joins(                                  Report.arel_table.join(Category.arel_table).on(Report.arel_table[:id].eq(
-                Category.arel_table[:report_id])).join_sources)
+      @report = Report.search_by_id(params[:id])
 
       check_report = Report.where("id = ?",params[:id])
 
@@ -55,16 +53,7 @@ module V1
     def search_ip
       ip_address = params[:ip_address] || nil
 
-=begin
-      reports = Report.find_by("ip_address= '#{ip_address}'")
-
-      #equivalente en sql
-      # #reports = Report.find_by_sql("select * from reports inner
-      #join categories on reports.id=categories.report_id  where ip_address='#{ip_address}'")
-=end
-      #query orm
-      reports = Report.select(Arel.star).where(Report.arel_table[:ip_address].eq("#{ip_address}")).joins(                      Report.arel_table.join(Category.arel_table).on(Report.arel_table[:id].eq(
-                Category.arel_table[:report_id])).join_sources)
+      reports = Report.search_report(ip_address)
 
       check_report = Report.find_by("ip_address = ? ",ip_address)
 

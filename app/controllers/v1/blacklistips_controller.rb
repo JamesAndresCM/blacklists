@@ -3,7 +3,7 @@ module V1
       before_action :set_blacklist, only: [:destroy]
 
       def index
-        @blacklistips = Blacklistip.all.order("created_at desc")
+        @blacklistips = Blacklistip.index_blacklist
         unless @blacklistips.empty?
             json_response(@blacklistips)
             else
@@ -19,7 +19,7 @@ module V1
       def search_blacklist
         ip_address = params[:ip_address] || nil
 
-        blacklist = Blacklistip.where("ip_address = ? ",ip_address).order("created_at desc")
+        blacklist = Blacklistip.search_blacklist(ip_address)
 
         unless blacklist.empty? or blacklist.nil?
           json_response(blacklist)
