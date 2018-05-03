@@ -8,15 +8,15 @@ Rails.application.routes.draw do
         get 'blacklist' => :index
         get 'blacklist/search_blacklist' => :search_blacklist
         post 'blacklist/new' => :create
-        delete 'blacklist/delete/:id' => :destroy
+        delete 'blacklist/delete/:id' => :destroy, constraints: { id: /\d+/ }
       end
       scope controller: :reports do
           get '/', to: redirect('v1/abuse_ips')
           get 'abuse_ips' => :index
-          get 'abuse_ip/:id' => :show
+          get 'abuse_ip/:id' => :show, constraints: { id: /\d+/ }
           post 'abuse_ip/new' => :create
-          delete 'abuse_ip/delete/:id' => :destroy
-          put 'abuse_ip/update/:id' => :update
+          delete 'abuse_ip/delete/:id' => :destroy, constraints: { id: /\d+/ }
+          put 'abuse_ip/update/:id' => :update, constraints: { id: /\d+/ }
           get '/abuse_ips/search_ip' => :search_ip
           get "*path" , :to => 'errors#routing', via: [:all]
       end
