@@ -12,8 +12,9 @@ module V1
       end
 
       def create
-        @blacklistips = Blacklistip.create!(blacklist_params)
-        json_response(@blacklistips, :created)
+        @blacklistips = Blacklistip.new(blacklist_params)
+        @blacklistips.save!
+        json_response({status: "200", message: "blacklist created"})
       end
 
       def search_blacklist
@@ -36,7 +37,7 @@ module V1
       private
 
       def blacklist_params
-        params.permit(:ip_address, :central_report, :hostname, :status_ip, :url_central_report)
+        params.require(:blacklistip).permit(:ip_address, :central_report, :hostname, :status_ip, :url_central_report)
       end
 
       def set_blacklist

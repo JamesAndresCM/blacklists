@@ -38,7 +38,7 @@ module V1
         @report.save!
         @report.categories.create(report_id: @report.id, category_ip_blacklist: params[:category_ip_blacklist])
         @report.save!
-        json_response(@report, :created)
+        json_response({status: "200", message: "report created"})
       else if not @report.nil?
         json_response(status:"error category_ip_blacklist not blank")
         end
