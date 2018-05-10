@@ -1,4 +1,4 @@
-# Todo apiblacklist
+# Blacklists API
 
 Set user and password to bd (mysql)
 - file `config/database.yml (username, password)`
